@@ -1,0 +1,7 @@
+# dependencias
+node_modules/
+
+# archivos temporales
+archivosXml/
+*.log
+.DS_Store

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Subir XML y obtener PDF</title>
+</head>
+<body>
+  <h1>Generar Ticket en PDF</h1>
+  <form id="uploadForm">
+    <input type="file" name="xmlFile" accept=".xml" required>
+    <button type="submit">Subir</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("uploadForm");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      const res = await fetch("http://localhost:3001/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      if (res.ok) {
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "ticket.pdf";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      } else {
+        alert("Error al procesar el XML");
+      }
+    });
+  </script>
+</body>
+</html>
