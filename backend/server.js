@@ -7,7 +7,7 @@ const xml2js = require("xml2js");
 const { generarPDF } = require("./pdfGenerator");
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 app.get("/", (req, res) => {
     res.send("Servidor funcionando en Render 🚀");
   });
