@@ -14,7 +14,8 @@ async function generarPDF(datos, outputPath) {
         margin: 3
     });        
 
-    doc.pipe(fs.createWriteStream("ticket.pdf"));
+     const stream = fs.createWriteStream(outputPath);
+            doc.pipe(stream);
 
     const supplier = datos["cac:AccountingSupplierParty"]?.[0]?.["cac:Party"]?.[0] || {};
     const supplierseller = datos["cac:SellerSupplierParty"]?.[0]?.["cac:Party"]?.[0] || {};
