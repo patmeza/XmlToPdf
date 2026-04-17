@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const xml2js = require("xml2js");
 const { generarPDF } = require("./pdfGenerator");
+const iconv = require("iconv-lite");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,8 +24,10 @@ app.post("/upload", upload.single("xmlFile"), async (req, res) => {
 
         // Leer XML
         const xmlData = fs.readFileSync(filePath);
+        const decodedData = iconv.decode(xmlData, "ISO-8859-1"); // Cambia "ISO-8859-1" si es necesario
+
         const parser = new xml2js.Parser();
-        parser.parseString(xmlData, async (err, result) => {
+        parser.parseString(decodedData, async (err, result) => {
             if (err) throw err;
 
             const invoice = result["Invoice"];
