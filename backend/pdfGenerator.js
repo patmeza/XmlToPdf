@@ -141,7 +141,7 @@ async function generarPDF(datos, outputPath) {
 
     // Datos principales del XML
     doc.fontSize(8);
-    doc.font("Courier");
+    //doc.font("Courier");
 
     // Línea de detalle
     if (datos["cac:InvoiceLine"]) {
