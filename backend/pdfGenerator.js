@@ -11,7 +11,7 @@ async function generarPDF(datos, outputPath) {
             const contenidoAltura = 550; // Calcula según el contenido
     doc.addPage({
         size: [156, contenidoAltura], // ancho fijo, altura dinámica
-        margin: 3
+        margin: 1
     });        
 
      const stream = fs.createWriteStream(outputPath);
@@ -43,7 +43,7 @@ async function generarPDF(datos, outputPath) {
     doc.moveDown(6); // espacio antes de lo siguiente
     // Ahora lo mostramos en el PDF
     doc.fontSize(8);
-    doc.font("Courier");
+    doc.font("Courier-Bold");
     doc.text(` ${nombreFinal}`, { align: "center" });
     doc.moveDown(0.3);
     doc.text(`R.U.C. ${ruc}`, { align: "center" });
@@ -72,7 +72,7 @@ async function generarPDF(datos, outputPath) {
         doc.text(`${datos['cbc:ID']?.[0] || ""}`, { align: "center" });
 
         doc.moveDown(1);
-        doc.font("Courier");
+        //doc.font("Courier");
         // doc.text(`Fecha: ${datos['cbc:IssueDate']?.[0] || ""}`, { align: "center" });
         // doc.text(`Hora: ${datos['cbc:IssueTime']?.[0] || ""}`, { align: "center" });
         let y = doc.y;
@@ -88,7 +88,7 @@ async function generarPDF(datos, outputPath) {
         // Decodificar el texto con iconv-lite
         const razonSocial = datos['cac:AccountingCustomerParty']?.[0]?.['cac:Party']?.[0]?.['cac:PartyLegalEntity']?.[0]?.['cbc:RegistrationName']?.[0] || "";
         // Contenido normal
-        doc.font("Courier")
+        doc
             .text(` ${razonSocial}`, 10, y + 22, { align: "center" });
 
         let y1 = doc.y;
@@ -107,7 +107,7 @@ async function generarPDF(datos, outputPath) {
         doc.text(` ${datos['cbc:ID']?.[0] || ""}`, { align: "center" });
 
         doc.moveDown(1);
-        doc.font("Courier");
+        //doc.font("Courier");
         const y = doc.y;
         doc.fontSize(8);
         doc.text(` ${datos['cbc:IssueDate']?.[0] || ""}`, 10, y);
@@ -118,7 +118,7 @@ async function generarPDF(datos, outputPath) {
             .text(`Cliente :`, 10, y + 10, { align: "center" });
 
         // Contenido normal
-        doc.font("Courier")
+        doc
             .text(` ${datos['cac:AccountingCustomerParty']?.[0]?.['cac:Party']?.[0]?.['cac:PartyLegalEntity']?.[0]?.['cbc:RegistrationName']?.[0] || ""}`, 10, y + 20, { align: "center" });
 
         let y1 = doc.y;
@@ -172,7 +172,7 @@ async function generarPDF(datos, outputPath) {
         });
 
     }
-    doc.font("Courier");
+    //doc.font("Courier");
     doc.x = 10;
     //doc.moveDown(2);
 
@@ -211,7 +211,7 @@ async function generarPDF(datos, outputPath) {
         doc.text(" S/", 95, y2);  // etiqueta alineada a la izquierda
         doc.text(` ${parseFloat(total).toFixed(2)}`, 110, y2, { align: "right", width: 40 }, { bold: true });
     }
-    doc.font("Courier");
+    //doc.font("Courier");
     doc.fontSize(8);
     doc.x = 10;
     doc.moveDown(2);
