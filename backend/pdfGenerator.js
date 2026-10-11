@@ -271,7 +271,7 @@ async function generarPDF(datos, outputPath) {
         try {
             const doc = new PDFDocument({ autoFirstPage: false });
 
-            const contenidoAltura = 550; // Calcula según el contenido
+            const contenidoAltura = 600; // Calcula según el contenido
             doc.addPage({
                 size: [156, contenidoAltura], // ancho fijo, altura dinámica
                 margin: 3
@@ -303,7 +303,7 @@ async function generarPDF(datos, outputPath) {
             doc.moveDown(6); // espacio antes de lo siguiente
             // Ahora lo mostramos en el PDF
             doc.fontSize(8);
-            doc.font("Courier");
+            doc.font("Courier-Bold");
             doc.text(` ${nombrePropietario}`, { align: "center" });
             doc.text(`R.U.C. ${ruc}`, { align: "center" });
             doc.text(` ${direccion1} ${departamento}-${ciudad}-${distrito}`, { align: "center" });
@@ -614,7 +614,7 @@ async function generarPDF(datos, outputPath) {
 
             // Datos principales del XML
             doc.fontSize(8);
-            doc.font("Courier");
+            
 
             // Línea de detalle
             if (datos["cac:InvoiceLine"]) {
@@ -732,7 +732,7 @@ async function generarPDF(datos, outputPath) {
              */
 
             doc.fontSize(8);
-            //doc.font("Courier");
+            
 
             const nombreTipoDocumento =
                 tipoDocumento === "01"
